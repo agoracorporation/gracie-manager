@@ -1,2 +1,2 @@
 # gracie-manager
-Back end for  managing **** Imirim students.
+Back end application.
