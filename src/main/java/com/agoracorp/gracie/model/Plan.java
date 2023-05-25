@@ -1,0 +1,14 @@
+package com.agoracorp.gracie.model;
+
+public enum Plan {
+	MONTHLY,
+	QUARTERLY,
+	SEMIANNUALY,
+	ANNUALY,
+	MONTHLY_KIDS,
+	QUARTERLY_KIDS,
+	SEMIANNUALY_KIDS,
+	ANNUALY_KIDS,
+	BOXING,
+	MUAY_TAHI
+}
