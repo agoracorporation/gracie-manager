@@ -15,7 +15,6 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer id;
 	
-	
 	@Column(nullable = false)
 	private String name;
 	
@@ -47,6 +46,14 @@ public class Student {
 		this.address = address;
 		this.plan = plan;
 		this.paymentStatus = paymentStatus;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
