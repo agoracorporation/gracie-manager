@@ -24,7 +24,7 @@ import com.agoracorp.gracie.service.StudentService;
 @RequestMapping(value="/gracie-manager/student")
 public class StudentController {
 	
-	private static final Logger logger = LogManager.getLogger(StudentController.class);
+	private static final Logger log = LogManager.getLogger(StudentController.class);
 	
 	private StudentService studentService;
 	
@@ -34,27 +34,32 @@ public class StudentController {
 	
 	@PostMapping()
 	public ResponseEntity<Student> createStudent(@RequestBody Student student){
+		log.info("Handle create student.");
 		return new ResponseEntity<Student>(studentService.createStudent(student),HttpStatus.CREATED);
 	}
 	
 	@GetMapping()
 	public ResponseEntity<List<Student>> getAllStudents(){
+		log.info("Handle get all students.");
 		return new ResponseEntity<List<Student>>(studentService.getAllStudents(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Student> getStudent(@PathVariable(name = "id") Integer id ){
+		log.info("Handle get student.");
 		return new ResponseEntity<Student>(studentService.getStudent(id),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteStudent(@PathVariable(name = "id") Integer id){
+		log.info("Handle delete student.");
 		studentService.deleteStudent(id);
 		return new ResponseEntity<String>("Stundent with id "+ id + " successfully deleted.",HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Student> updateStudent(@PathVariable(name = "id") Integer id, @RequestBody Student updateDstudent){
+		log.info("Handle update student.");
 		Student student = studentService.updateStudent(id, updateDstudent);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
