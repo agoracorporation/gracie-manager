@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.agoracorp.gracie.exception.StudentException;
 import com.agoracorp.gracie.model.Student;
 import com.agoracorp.gracie.repository.StudentRepository;
 
@@ -25,16 +26,17 @@ public class StudentService {
 	}
 
 	public Student getStudent(Integer id) {
-		return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student with id "+ id + " not found."));
+		return studentRepository.findById(id).orElseThrow(() -> new StudentException("Student","id", id));
 	}
 
 	public void deleteStudent(Integer id) {
-		Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student with id "+ id + " not found."));
+		Student student = studentRepository.findById(id).orElseThrow(() -> new StudentException("Student","id", id));
 		studentRepository.delete(student);
 	}
 
 	public Student updateStudent(Integer id, Student updatedStudent) {
-		Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student with id "+ id + " not found."));
+		
+		Student student = studentRepository.findById(id).orElseThrow(() -> new StudentException("Student","id", id));
 		student.setName(updatedStudent.getName());
 		student.setPhoneNumber(updatedStudent.getPhoneNumber());
 		student.setCpf(updatedStudent.getCpf());
