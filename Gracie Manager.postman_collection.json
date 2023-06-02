@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "228cc019-a0cf-44aa-8d52-8169d678449b",
+		"name": "Gracie Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16263735"
+	},
+	"item": [
+		{
+			"name": "Post Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/**\r",
+							" \r",
+							"The faker code from the CDN is trying to set the faker object as a property of window, which is undefined in the Postman Sandbox. To work around this, we explicitly define window as an empty object before running the faker injection snippet.*/\r",
+							"\r",
+							"window = {};\r",
+							"\r",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"    if (error || response.code !== 200) {\r",
+							"        pm.expect.fail('Could not load external library');\r",
+							"    }\r",
+							"\r",
+							"    eval(response.text());\r",
+							"    const cpf = Math.floor(Math.random() * 1000000000000);\r",
+							"\r",
+							"    // This is where you can set the locale. See faker.js docs for all available locales.\r",
+							"    window.faker.locale=\"pt_BR\";\r",
+							"    pm.collectionVariables.set(\"name\", window.faker.name.firstName() + \" \" + window.faker.name.lastName());\r",
+							"    pm.collectionVariables.set(\"phoneNumber\",window.faker.phone.phoneNumber());\r",
+							"    pm.collectionVariables.set(\"streetAddress\",window.faker.address.streetAddress());    \r",
+							"    pm.collectionVariables.set(\"cpf\",cpf);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"phoneNumber\":\"{{phoneNumber}}\",\r\n    \"cpf\":\"{{cpf}}\",\r\n    \"address\":\"{{streetAddress}}\",\r\n    \"paymentStatus\":true,\r\n    \"plan\":  {\r\n        \"type\": \"tantofaz\",\r\n        \"startDate\":\"hoje\",\r\n        \"endDate\":\"amanha\",\r\n        \"value\":\"tome\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gracie-manager/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gracie-manager",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Studets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gracie-manager/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gracie-manager",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gracie-manager/student/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gracie-manager",
+						"student",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gracie-manager/student/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gracie-manager",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"id\": 5,\r\n        \"name\": \"Masio Martinez\",\r\n        \"cpf\": \"527202781037\",\r\n        \"phoneNumber\": \"984008491\",\r\n        \"address\": \"Rua Francisa Biriba\",\r\n        \"plan\": \"MONTHLY\",\r\n        \"paymentStatus\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/gracie-manager/student/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gracie-manager",
+						"student",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "phoneNumber",
+			"value": ""
+		},
+		{
+			"key": "streetAddress",
+			"value": ""
+		},
+		{
+			"key": "cpf",
+			"value": ""
+		}
+	]
+}
