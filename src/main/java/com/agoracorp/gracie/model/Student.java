@@ -1,10 +1,13 @@
 package com.agoracorp.gracie.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Table(name = "students")
@@ -28,10 +31,11 @@ public class Student {
 	private String address;
 	
 	@Column(nullable = false)
-	private Plan plan;
-	
-	@Column(nullable = false)
 	private Boolean paymentStatus;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "plan_id")
+	private Plan plan;
 	
 	public Student() {
 		super();
